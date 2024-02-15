@@ -43,7 +43,7 @@ export default function Watch() {
                     </div>
                     <div className="flex w-full" style={{ height: "92.5vh" }}>
                         <div className="flex lg:flex-row flex-col gap-y-10 gap-x-5 lg:p-7 mx-2 mr-0 lg:w-full overflow-auto">
-                            <div style={{ maxWidth: "70%" }}>
+                            <div className="max-w-[100%] lg:max-w-[70%]">
                                 <div>
                                     <iframe
                                         width="100%"
@@ -80,7 +80,7 @@ export default function Watch() {
                                                     <HiScissors className="text-xl" />
                                                     <strong>clip</strong>
                                                 </div>
-                                                <div className="flex items-center gap-1 cursor-pointer">
+                                                <div className="lg:flex hidden items-center gap-1 cursor-pointer">
                                                     <MdOutlinePlaylistAdd className="text-xl" />
                                                     <strong>save</strong>
                                                 </div>
