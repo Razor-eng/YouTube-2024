@@ -107,7 +107,7 @@ export default function Watch() {
                                                     </h6>
                                                 </div>
                                                 <div>
-                                                    <button className="uppercase bg-red-600 rounded-sm p-2 text-sm tracking-wider">
+                                                    <button className="uppercase rounded-md bg-red-600 p-2 text-sm tracking-wide font-semibold">
                                                         subscribe
                                                     </button>
                                                 </div>

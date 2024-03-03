@@ -4,10 +4,12 @@ import { FaRegCompass } from 'react-icons/fa'
 import { GiFilmStrip } from 'react-icons/gi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useColorMode } from '@chakra-ui/react'
 
 const Sidebar = ({ search }: { search: boolean }) => {
     const [val, setVal] = useState("Home")
     const navigate = useNavigate();
+    const { colorMode } = useColorMode();
     function getHome(name: string) {
         if (name == "Home") {
             navigate("/");
@@ -114,19 +116,19 @@ const Sidebar = ({ search }: { search: boolean }) => {
     ]
 
     return (
-        <div className={`w-2/12 h-[100%] bg-[#212121] pr-5 overflow-x-hidden pb-8 sidebar ${search ? "md:block hidden" : ""}`}>
+        <div className={`w-2/12 h-[100%] ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-gray-100'} pr-5 overflow-x-hidden pb-8 sidebar ${search ? "md:block hidden" : ""}`}>
             <ul className="flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
                 {mainLink.map(({ icon, name }) => {
                     return (
                         <li
                             key={name}
                             className={
-                                `pl-6 py-3 hover:bg-zinc-600 hover:text-red-600 ${name === val ? "bg-zinc-700 text-red-600" : ""}`
+                                `pl-4 md:pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
                             }
                         >
                             <a href='#' className='flex items-center gap-5' onClick={() => { setVal(name); getHome(name) }}>
                                 {icon}
-                                <span className="text-sm tracking-wider lg:block hidden">
+                                <span className="text-md tracking-wider lg:block hidden">
                                     {name}
                                 </span>
                             </a>
@@ -134,18 +136,18 @@ const Sidebar = ({ search }: { search: boolean }) => {
                     )
                 })}
             </ul>
-            <ul className="flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
+            <ul className="hidden md:flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
                 {secondaryLink.map(({ icon, name }) => {
                     return (
                         <li
                             key={name}
                             className={
-                                `pl-6 py-3 hover:bg-zinc-600 hover:text-red-600 ${name === val ? "bg-zinc-700 text-red-600" : ""}`
+                                `pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
                             }
                         >
                             <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
                                 {icon}
-                                <span className="text-sm tracking-wider lg:block hidden">
+                                <span className="text-md tracking-wider lg:block hidden">
                                     {name}
                                 </span>
                             </a>
@@ -159,12 +161,12 @@ const Sidebar = ({ search }: { search: boolean }) => {
                         <li
                             key={name}
                             className={
-                                `pl-6 py-3 hover:bg-zinc-600 hover:text-red-600 ${name === val ? "bg-zinc-700 text-red-600" : ""}`
+                                `pl-4 md:pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
                             }
                         >
                             <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
                                 {icon}
-                                <span className="text-sm tracking-wider lg:block hidden">
+                                <span className="text-md tracking-wider lg:block hidden">
                                     {name}
                                 </span>
                             </a>
@@ -172,18 +174,18 @@ const Sidebar = ({ search }: { search: boolean }) => {
                     )
                 })}
             </ul>
-            <ul className="flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
+            <ul className="hidden md:flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
                 {helpLink.map(({ icon, name }) => {
                     return (
                         <li
                             key={name}
                             className={
-                                `pl-6 py-3 hover:bg-zinc-600 hover:text-red-600 ${name === val ? "bg-zinc-700 text-red-600" : ""}`
+                                `pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
                             }
                         >
                             <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
                                 {icon}
-                                <span className="text-sm tracking-wider lg:block hidden">
+                                <span className="text-md tracking-wider lg:block hidden">
                                     {name}
                                 </span>
                             </a>

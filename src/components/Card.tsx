@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 export default function Card({ data }: { data: HomePageVideos }) {
     return (
         <Link to={`/watch/${data.videoId}`}>
-            <div className='lg:w-72 w-64 h-fit flex gap-3 flex-col bg-[#131212b5] rounded-lg transition-all ease-in hover:bg-gray-700 cursor-pointer hover:scale-110'>
+            <div className='lg:w-72 w-64 h-fit flex gap-3 flex-col rounded-lg transition-all ease-in  cursor-pointer hover:scale-110'>
                 <div className="relative">
-                    <span className="absolute bottom-3 right-3 text-sm bg-gray-900 px-2 py-0.5 z-10">
+                    <span className="absolute bottom-3 right-3 text-sm bg-[rgba(255,255,255,0.4)] text-black font-semibold px-2 py-0.5 z-10">
                         {data.videoDuration}
                     </span>
                     <img

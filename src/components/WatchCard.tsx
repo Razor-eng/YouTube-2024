@@ -4,7 +4,7 @@ import { RecommendedVideos } from "../Types"
 const WatchCard = ({ data }: { data: RecommendedVideos }) => {
     return (
         <Link to={`/watch/${data.videoId}`}>
-            <div className="flex bg-[#131212b5] gap-3">
+            <div className="flex gap-3 border border-gray-300 hover:scale-105 transition-all ease-in-out">
                 <div className="relative min-w-fit">
                     <span className="absolute bottom-3 right-3 text-sm bg-gray-900 px-2 py-0.5 z-10">
                         {data.videoDuration}
