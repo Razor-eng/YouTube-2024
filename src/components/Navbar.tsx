@@ -28,7 +28,7 @@ const Navbar = () => {
     return (
         <div className={`flex justify-between items-center px-3 md:px-10 h-14 ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-gray-200 border-gray-300'} opacity-95 sticky top-0 z-50 border-b`}>
             <div className="flex gap-8 items-center text-2xl">
-                <div onClick={toggleColorMode} className={`transition ease-in-out duration-300 cursor-pointer active:scale-75 md:p-3 rounded-lg ${colorMode === "dark" ? 'hover:bg-gray-700 bg-[#212125] border-[#212129]' : 'hover:bg-slate-400 bg-slate-300'} border border-gray-300 shadow-lg hover:scale-105`}>
+                <div onClick={toggleColorMode} className={`transition ease-in-out duration-300 cursor-pointer active:scale-75 md:p-3 rounded-lg ${colorMode === "dark" ? 'hover:bg-gray-700 bg-[#212125] border-[#212129]' : 'hover:bg-slate-400 bg-slate-300 border-gray-300'} border shadow-lg hover:scale-105`}>
                     {/* <GiHamburgerMenu /> */}
                     {colorMode === "dark" ?
                         <BsSunFill color='white' />
