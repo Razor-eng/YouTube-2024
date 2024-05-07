@@ -8,6 +8,7 @@ body {
   background-color: rgba(0, 0, 0, 0.89);
   color: #ffffff;
   font-family: "Roboto", sans-serif;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -16,6 +17,21 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #c7c7c7;
-  border-radius: 1rem;
+  background-color: #979292;
+  border-radius: 10px;
+}
+
+.scrollHide::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }

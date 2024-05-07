@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { getSearchPageVideos } from '../store/reducers/getSearchPageVideos';
 import SearchCard from '../components/SearchCard';
 
-function Search() {
+function Search({ view, setView }: { view: boolean, setView: React.Dispatch<React.SetStateAction<boolean>> }) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const videos = useAppSelector((state) => state.youtubeApp.videos);
@@ -28,13 +28,13 @@ function Search() {
     return (
         <div className='max-h-screen overflow-hidden'>
             <div style={{ height: "7.5vh" }}>
-                <Navbar />
+                <Navbar view={view} setView={setView} />
             </div>
             <div className="flex" style={{ height: "92.5vh" }}>
-                <Sidebar search={true} />
+                <Sidebar view={view} search={true} />
                 {
                     videos.length ?
-                        <div className='md:py-8 py-2 md:pl-8 pl-2 flex flex-col gap-5 w-full'>
+                        <div className='md:py-4 py-2 md:pl-8 flex flex-col gap-2 md:gap-5 w-full'>
                             <InfiniteScroll
                                 dataLength={videos.length}
                                 next={() => dispatch(getSearchPageVideos(true))}
@@ -44,7 +44,7 @@ function Search() {
                             >
                                 {videos.map((item: HomePageVideos) => {
                                     return (
-                                        <div className="my-5" key={item.videoId}>
+                                        <div className="md:my-5 my-2" key={item.videoId}>
                                             <SearchCard data={item} />
                                         </div>
                                     )

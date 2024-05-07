@@ -1,36 +1,69 @@
-import { MdHistory, MdHomeFilled, MdOutlineFeedback, MdOutlineFlag, MdOutlineHelpOutline, MdOutlineSlowMotionVideo, MdOutlineSmartDisplay, MdOutlineSportsVolleyball, MdOutlineVideoLibrary, MdOutlineWatchLater, MdSettings, MdSubscriptions, MdThumbUpOffAlt } from 'react-icons/md'
+import { MdHistory, MdHome, MdHomeFilled, MdOutlineFeedback, MdOutlineFlag, MdOutlineHelpOutline, MdOutlineHome, MdOutlineSlowMotionVideo, MdOutlineSmartDisplay, MdOutlineSportsVolleyball, MdOutlineSubscriptions, MdOutlineVideoLibrary, MdOutlineWatchLater, MdSettings, MdSlowMotionVideo, MdSubscriptions, MdThumbUpOffAlt, MdVideoLibrary } from 'react-icons/md'
 import { TbDeviceGamepad2, TbMusic } from 'react-icons/tb'
+import { FiArrowDownCircle } from 'react-icons/fi'
 import { FaRegCompass } from 'react-icons/fa'
 import { GiFilmStrip } from 'react-icons/gi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useColorMode } from '@chakra-ui/react'
+import { IoAddCircleOutline } from 'react-icons/io5'
 
-const Sidebar = ({ search }: { search: boolean }) => {
-    const [val, setVal] = useState("Home")
+const Sidebar = ({ search, view }: { search: boolean, view: boolean }) => {
+    const [val, setVal] = useState("Home");
+    const [viewMore, setViewMore] = useState(false);
     const navigate = useNavigate();
     const { colorMode } = useColorMode();
+    let year = new Date().getFullYear();
+
     function getHome(name: string) {
-        if (name == "Home") {
+        if (name === "Home") {
             navigate("/");
         }
     }
 
-    const mainLink = [
+    const MobileLink = [
         {
-            icon: <MdHomeFilled className='text-xl' />,
-            name: "Home"
+            icon: <MdOutlineHome />,
+            icon2: <MdHome />,
+            name: "Home",
         },
         {
-            icon: <FaRegCompass className='text-xl' />,
-            name: "Explore"
-        },
-        {
-            icon: <MdOutlineSlowMotionVideo className='text-xl' />,
+            icon: <MdOutlineSlowMotionVideo />,
+            icon2: <MdSlowMotionVideo />,
             name: "Shorts"
         },
         {
-            icon: <MdSubscriptions className='text-xl' />,
+            icon: <IoAddCircleOutline />,
+            icon2: <IoAddCircleOutline />,
+            name: "Add"
+        },
+        {
+            icon: <MdOutlineSubscriptions />,
+            icon2: <MdSubscriptions />,
+            name: "Subscriptions"
+        },
+        {
+            icon: <MdOutlineVideoLibrary />,
+            icon2: <MdVideoLibrary />,
+            name: "Library"
+        },
+    ];
+
+    const mainLink = [
+        {
+            icon: <MdHomeFilled />,
+            name: "Home"
+        },
+        {
+            icon: <FaRegCompass />,
+            name: "Explore"
+        },
+        {
+            icon: <MdOutlineSlowMotionVideo />,
+            name: "Shorts"
+        },
+        {
+            icon: <MdOutlineSubscriptions />,
             name: "Subscriptions"
         },
     ];
@@ -116,95 +149,163 @@ const Sidebar = ({ search }: { search: boolean }) => {
     ]
 
     return (
-        <div className={`w-2/12 h-[100%] ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-gray-100'} pr-5 overflow-x-hidden pb-8 sidebar ${search ? "md:block hidden" : ""}`}>
-            <ul className="flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
-                {mainLink.map(({ icon, name }) => {
+        <div className={`h-screen overflow-y-scroll scrollHide relative ${view ? 'md:w-1/12' : 'md:w-3/12'}`}>
+            <div className={` ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white'} pr-5 overflow-x-hidden pb-8 hidden md:block ${search ? "md:block hidden" : ""}`}>
+                {view ?
+                    <div className="md:flex ml-1 flex-col hidden md:w-[64px]">
+                        {mainLink.map(({ icon, name }) => {
+                            return (
+                                <div
+                                    key={name}
+                                    className={
+                                        `p-5 rounded-lg ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "text-white" : "text-black"}` : "text-zinc-500"} transition-all ease-in duration-150 cursor-pointer`
+                                    }
+                                    onClick={() => { setVal(name); getHome(name) }}
+                                >
+                                    <div className='flex gap-1 flex-col items-center justify-center'>
+                                        <p className="text-2xl">
+                                            {icon}
+                                        </p>
+                                        <span className="text-[10px]">{name}</span>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    :
+                    <>
+                        <ul className={`flex flex-col border-b py-2 ${colorMode === 'dark' ? 'border-zinc-700' : 'border-gray-300'} lg:w-[109%] w-[140%]`}>
+                            {mainLink.map(({ icon, name }) => {
+                                return (
+                                    <li
+                                        key={name}
+                                        className={
+                                            `pl-4 md:ml-2 py-2 rounded-lg ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "bg-zinc-700 text-white" : "bg-zinc-200 text-black"} font-extrabold` : "text-zinc-500"} transition-all ease-in duration-150`
+                                        }
+                                    >
+                                        <a href='#' className='flex items-center gap-5' onClick={() => { setVal(name); getHome(name) }}>
+                                            <p className='text-xl'>{icon}</p>
+                                            <span className="text-sm font-semibold tracking-wide lg:block hidden">
+                                                {name}
+                                            </span>
+                                        </a>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                        <ul className={`hidden md:flex flex-col border-b py-2 ${colorMode === 'dark' ? 'border-zinc-700' : 'border-gray-300'} lg:w-[109%] w-[140%]`}>
+                            {secondaryLink.map(({ icon, name }) => {
+                                return (
+                                    <li
+                                        key={name}
+                                        className={
+                                            `pl-4 md:ml-2 py-2 rounded-lg ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "bg-zinc-700 text-white" : "bg-zinc-200 text-black"} font-bold` : "text-zinc-500"} transition-all ease-in duration-150`
+                                        }
+                                    >
+                                        <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
+                                            {icon}
+                                            <span className="text-sm font-semibold tracking-wide lg:block hidden">
+                                                {name}
+                                            </span>
+                                        </a>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                        {viewMore &&
+                            <>
+                                <ul className={`flex flex-col border-b ${colorMode === 'dark' ? 'border-zinc-700' : 'border-gray-300'} lg:w-[109%] w-[140%]`}>
+                                    {subscriptionLink.map(({ icon, name }) => {
+                                        return (
+                                            <li
+                                                key={name}
+                                                className={
+                                                    `pl-4 md:ml-2 py-2 rounded-lg ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "bg-zinc-700 text-white" : "bg-zinc-200 text-black"} font-bold` : "text-zinc-500"} transition-all ease-in duration-150`
+                                                }
+                                            >
+                                                <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
+                                                    {icon}
+                                                    <span className="text-sm font-semibold tracking-wide lg:block hidden">
+                                                        {name}
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                                <ul className={`hidden md:flex flex-col border-b ${colorMode === 'dark' ? 'border-zinc-700' : 'border-gray-300'} lg:w-[109%] w-[140%]`}>
+                                    {helpLink.map(({ icon, name }) => {
+                                        return (
+                                            <li
+                                                key={name}
+                                                className={
+                                                    `pl-4 md:ml-2 py-2 rounded-lg ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "bg-zinc-700 text-white" : "bg-zinc-200 text-black"} font-bold` : "text-zinc-500"} transition-all ease-in duration-150`
+                                                }
+                                            >
+                                                <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
+                                                    {icon}
+                                                    <span className="text-sm font-semibold tracking-wide lg:block hidden">
+                                                        {name}
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                                <ul className="lg:flex gap-2 flex-wrap p-4 text-xs font-semibold text-zinc-600 hidden">
+                                    {textLinks[0].map((name) => {
+                                        return <li key={name}>{name}</li>
+                                    })}
+                                </ul>
+                                <ul className="lg:flex gap-2 flex-wrap text-xs font-semibold p-4 text-zinc-600 hidden">
+                                    {textLinks[1].map((name) => {
+                                        return <li key={name}>{name}</li>
+                                    })}
+                                </ul>
+                                <span className="px-4 text-xs text-zinc-500 lg:block hidden">&copy; {year} Google LLC</span>
+                                <br />
+                            </>
+                        }
+                        {!viewMore &&
+                            <div
+                                className={`flex items-center justify-center my-2 ml-3 gap-1 bg-transparent w-full hover:no-underline px-5 rounded-md py-2 ${colorMode === 'dark' ? 'hover:bg-zinc-700 border-zinc-700' : 'hover:bg-zinc-200 border-zinc-300'} transition-all ease-in duration-200 border cursor-pointer relative`}
+                                onClick={() => setViewMore(true)}
+                            >
+                                <button className='font-semibold text-sm'>
+                                    View more
+                                </button>
+                                <FiArrowDownCircle size={16} className='absolute -bottom-2 text-zinc-400' />
+                            </div>
+                        }
+                    </>
+                }
+            </div>
+            <div className={`grid z-50 ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white'} grid-cols-5 h-fit items-center w-screen border-t ${colorMode === "dark" ? 'border-zinc-500' : 'border-zinc-400'} fixed md:hidden bottom-0`}>
+                {MobileLink.map(({ icon, name, icon2 }, id) => {
                     return (
-                        <li
-                            key={name}
+                        <div
+                            key={id}
                             className={
-                                `pl-4 md:pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
+                                `py-4 cursor-pointer ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "text-white" : "text-black"}` : "text-zinc-500"} transition-all ease-in duration-150 cursor-pointer`
                             }
+                            onClick={() => { setVal(name); getHome(name) }}
                         >
-                            <a href='#' className='flex items-center gap-5' onClick={() => { setVal(name); getHome(name) }}>
-                                {icon}
-                                <span className="text-md tracking-wider lg:block hidden">
-                                    {name}
-                                </span>
-                            </a>
-                        </li>
+                            <div className='flex gap-1 flex-col items-center justify-center'>
+                                <p className={`${id === 2 ? 'text-5xl' : 'text-3xl'}`}>
+                                    {val === name ?
+                                        icon2
+                                        :
+                                        icon
+                                    }
+                                </p>
+                                {id !== 2 &&
+                                    <span className="text-sm font-semibold">{name}</span>
+                                }
+                            </div>
+                        </div>
                     )
                 })}
-            </ul>
-            <ul className="hidden md:flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
-                {secondaryLink.map(({ icon, name }) => {
-                    return (
-                        <li
-                            key={name}
-                            className={
-                                `pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
-                            }
-                        >
-                            <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
-                                {icon}
-                                <span className="text-md tracking-wider lg:block hidden">
-                                    {name}
-                                </span>
-                            </a>
-                        </li>
-                    )
-                })}
-            </ul>
-            <ul className="flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
-                {subscriptionLink.map(({ icon, name }) => {
-                    return (
-                        <li
-                            key={name}
-                            className={
-                                `pl-4 md:pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
-                            }
-                        >
-                            <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
-                                {icon}
-                                <span className="text-md tracking-wider lg:block hidden">
-                                    {name}
-                                </span>
-                            </a>
-                        </li>
-                    )
-                })}
-            </ul>
-            <ul className="hidden md:flex flex-col border-b-2 border-gray-700 lg:w-[109%] w-[140%]">
-                {helpLink.map(({ icon, name }) => {
-                    return (
-                        <li
-                            key={name}
-                            className={
-                                `pl-6 py-3 ${colorMode === "dark" ? 'hover:bg-zinc-600' : 'hover:bg-gray-200'} hover:text-red-600 ${name === val ? `${colorMode === "dark" ? "bg-zinc-700" : "bg-zinc-300"} text-red-600` : ""}`
-                            }
-                        >
-                            <a href='#' className='flex items-center gap-5' onClick={() => setVal(name)}>
-                                {icon}
-                                <span className="text-md tracking-wider lg:block hidden">
-                                    {name}
-                                </span>
-                            </a>
-                        </li>
-                    )
-                })}
-            </ul>
-            <ul className="lg:flex gap-2 flex-wrap text-sm p-4 text-zinc-400 hidden">
-                {textLinks[0].map((name) => {
-                    return <li key={name}>{name}</li>
-                })}
-            </ul>
-            <ul className="lg:flex gap-2 flex-wrap text-sm p-4 text-zinc-400 hidden">
-                {textLinks[1].map((name) => {
-                    return <li key={name}>{name}</li>
-                })}
-            </ul>
-            <span className="px-4 text-sm text-zinc-400 lg:block hidden">&copy; 2024 Google</span>
-            <br />
+            </div>
         </div>
     )
 }

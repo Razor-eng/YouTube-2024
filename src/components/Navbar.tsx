@@ -1,4 +1,4 @@
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { RxHamburgerMenu } from "react-icons/rx";
 import { BsBell, BsCameraVideo, BsSunFill, BsYoutube } from 'react-icons/bs'
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai'
 import { TiMicrophone } from 'react-icons/ti'
@@ -9,12 +9,15 @@ import { changeSearchTerm, clearSearchTerm, clearVideos } from '../store'
 import { getSearchPageVideos } from '../store/reducers/getSearchPageVideos'
 import { useColorMode } from '@chakra-ui/react'
 import { TbMoonFilled } from 'react-icons/tb'
+import { useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({ view, setView }: { view: boolean, setView: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const searchTerm = useAppSelector((state) => state.youtubeApp.searchTerm);
+    const [search, setSearch] = useState(false);
+
     const handleSearch = () => {
         if (location.pathname !== "/search")
             navigate("/search");
@@ -26,38 +29,32 @@ const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-        <div className={`flex justify-between items-center px-3 md:px-10 h-14 ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-gray-200 border-gray-300'} opacity-95 sticky top-0 z-50 border-b`}>
+        <div className={`flex justify-between items-center px-3 md:px-5 md:pr-5 h-14 ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white border-gray-300'} opacity-95 md:sticky fixed w-full top-0 z-50 border-b`}>
             <div className="flex gap-8 items-center text-2xl">
-                <div onClick={toggleColorMode} className={`transition ease-in-out duration-300 cursor-pointer active:scale-75 md:p-3 rounded-lg ${colorMode === "dark" ? 'hover:bg-gray-700 bg-[#212125] border-[#212129]' : 'hover:bg-slate-400 bg-slate-300 border-gray-300'} border shadow-lg hover:scale-105`}>
-                    {/* <GiHamburgerMenu /> */}
-                    {colorMode === "dark" ?
-                        <BsSunFill color='white' />
-                        :
-                        <TbMoonFilled color='#212121' />
-                    }
+                <div onClick={() => setView(!view)} className={`transition md:block hidden ease-in-out duration-300 cursor-pointer md:p-2 rounded-full ${colorMode === "dark" ? 'hover:bg-zinc-700' : 'hover:bg-zinc-200'}`}>
+                    <RxHamburgerMenu />
                 </div>
-                <Link to="/">
-                    <div className="flex gap-1 items-center justify-center relative right-5" onClick={() => dispatch(clearSearchTerm())}>
+                <Link to="/" className="p-2 ml-4">
+                    <div className="flex gap-2 md:gap-1 items-center justify-center relative right-5" onClick={() => dispatch(clearSearchTerm())}>
                         <BsYoutube className='text-3xl text-red-600' />
-                        <span className="text-xl md:block hidden font-medium">YouTube</span>
+                        <span className="md:text-xl text-lg tracking-normal font-bold md:tracking-tighter">YouTube</span>
                     </div>
                 </Link>
             </div>
-            <div className="flex items-center justify-center gap-5">
+            <div className={`md:flex items-center justify-center gap-5 ${search ? '' : 'hidden'}`}>
                 <form onSubmit={e => {
                     e.preventDefault();
                     handleSearch();
                 }}
                 >
-                    <div className={`flex items-center h-10 px-4 pr-0 rounded-full border-[rgba(255,255,255,0.1)] ${colorMode === "dark" ? "bg-zinc-900" : "bg-zinc-100"} border`}>
-                        <div className="flex gap-4 items-center pr-5">
-                            <div>
-                                <AiOutlineSearch className="text-xl text-gray-500" />
-                            </div>
+                    <div className={`flex items-center px-4 pr-0 rounded-full border bg-transparent  ${colorMode === "dark" ? "border-zinc-700 " : "border-zinc-300 "} border`}>
+                        <div className="flex items-center pr-5">
                             <input
                                 type="text"
-                                className={`md:w-96 w-full ${colorMode === "dark" ? "bg-zinc-900" : "bg-zinc-100"} focus:outline-none border-none`}
+                                className={`md:w-96 placeholder:text-zinc-500 w-full focus:outline-none border-none bg-transparent`}
                                 value={searchTerm}
+                                placeholder="Search"
+                                onBlur={() => setSearch(false)}
                                 onChange={e => dispatch(changeSearchTerm(e.target.value))}
                             />
                             <AiOutlineClose
@@ -65,25 +62,35 @@ const Navbar = () => {
                                 onClick={() => dispatch(clearSearchTerm())}
                             />
                         </div>
-                        <button className={`h-10 w-16 flex items-center justify-center ${colorMode === "dark" ? "bg-zinc-800 hover:bg-gray-600" : "bg-zinc-300 hover:bg-gray-400"} transition ease-in-out duration-300 cursor-pointer active:scale-75 rounded-r-full px-2 border border-[rgba(255,255,255,0.1)]`} >
+                        <button className={`h-10 w-16 flex items-center justify-center ${colorMode === "dark" ? "bg-zinc-800 hover:bg-zinc-700" : "bg-zinc-200 hover:bg-zinc-300"} transition ease-in-out duration-300 cursor-pointer active:scale-75 rounded-r-full px-2 border border-[rgba(255,255,255,0.1)]`} >
                             <AiOutlineSearch className='text-xl' />
                         </button>
                     </div>
                 </form>
-                <div className={`p-3 text-xl rounded-full transition ease-in-out duration-300 cursor-pointer ${colorMode === "dark" ? 'bg-zinc-900 hover:bg-gray-700 active:bg-gray-600' : "bg-zinc-300 hover:bg-gray-500/30 active:bg-gray-400"} md:block hidden`}>
+                <div className={`p-3 text-xl rounded-full transition ease-in-out duration-300 cursor-pointer ${colorMode === "dark" ? 'bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600' : "bg-zinc-200 hover:bg-zinc-300 active:bg-zinc-400"} md:block hidden`}>
                     <TiMicrophone />
                 </div>
             </div>
-            <div className="md:flex gap-5 items-center text-xl hidden">
-                <BsCameraVideo className='active:scale-75 cursor-pointer' />
-                <IoAppsSharp className=' active:scale-75 cursor-pointer' />
-                <div className="relative">
-                    <BsBell className=' active:scale-75 cursor-pointer' />
-                    <span className="absolute bottom-2 left-2 text-xs bg-red-600 rounded-full px-1">
-                        9+
-                    </span>
+            <div className="flex gap-5 items-center text-xl">
+                <div onClick={toggleColorMode} className={`transition ease-in-out duration-300 cursor-pointer md:p-2 ml-1 rounded-full ${colorMode === "dark" ? 'hover:bg-zinc-700' : 'hover:bg-zinc-200'}`}>
+                    {colorMode === "dark" ?
+                        <BsSunFill color='white' />
+                        :
+                        <TbMoonFilled color='#212121' />
+                    }
                 </div>
-                <img src="/user.png" alt="" className=' bg-[#f1f1f1] w-9 h-9 rounded-full ml-3 transition ease-in-out duration-300 hover:scale-110 active:scale-90 cursor-pointer' />
+                <div className={`gap-5 items-center ${search ? 'hidden' : 'flex'}`}>
+                    <BsCameraVideo className='active:scale-75 cursor-pointer hidden md:block' />
+                    <IoAppsSharp className=' active:scale-75 cursor-pointer hidden md:block' />
+                    <div className="relative">
+                        <BsBell className=' active:scale-75 cursor-pointer' />
+                        <span className="absolute bottom-2 left-2 text-xs text-white bg-red-600 rounded-full px-1">
+                            9+
+                        </span>
+                    </div>
+                    <AiOutlineSearch className=' active:scale-75 cursor-pointer text-2xl' onClick={() => setSearch(true)} />
+                    <img src="/user.png" alt="" className='bg-zinc-200 w-9 h-9 rounded-full md:ml-3 transition ease-in-out duration-300 hover:scale-110 active:scale-90 cursor-pointer' />
+                </div>
             </div>
         </div>
     )
