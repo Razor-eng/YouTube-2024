@@ -10,6 +10,7 @@ import { getSearchPageVideos } from '../store/reducers/getSearchPageVideos'
 import { useColorMode } from '@chakra-ui/react'
 import { TbMoonFilled } from 'react-icons/tb'
 import { useState } from "react";
+import { BiArrowBack } from "react-icons/bi";
 
 const Navbar = ({ view, setView }: { view: boolean, setView: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const location = useLocation();
@@ -29,26 +30,32 @@ const Navbar = ({ view, setView }: { view: boolean, setView: React.Dispatch<Reac
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-        <div className={`flex justify-between items-center px-3 md:px-5 md:pr-5 h-14 ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white border-gray-300'} opacity-95 md:sticky fixed w-full top-0 z-50 border-b`}>
+        <div className={`flex items-center md:px-5 ${search ? '' : 'px-3 justify-between'} h-14 ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white border-gray-300'} opacity-95 md:sticky fixed w-full top-0 z-50 border-b`}>
             <div className="flex gap-8 items-center text-2xl">
                 <div onClick={() => setView(!view)} className={`transition md:block hidden ease-in-out duration-300 cursor-pointer md:p-2 rounded-full ${colorMode === "dark" ? 'hover:bg-zinc-700' : 'hover:bg-zinc-200'}`}>
                     <RxHamburgerMenu />
                 </div>
-                <Link to="/" className="p-2 ml-4">
-                    <div className="flex gap-2 md:gap-1 items-center justify-center relative right-5" onClick={() => dispatch(clearSearchTerm())}>
+                <Link to="/" className="p-2">
+                    <div className={`flex ml-4 gap-2 items-center justify-center relative right-5 ${search ? 'hidden' : 'flex'}`} onClick={() => dispatch(clearSearchTerm())}>
                         <BsYoutube className='text-3xl text-red-600' />
                         <span className="md:text-xl text-lg tracking-normal font-bold md:tracking-tighter">YouTube</span>
                     </div>
+                    <div
+                        className={`${search ? 'block text-xl' : 'hidden'}`}
+                        onClick={() => setSearch(false)}
+                    >
+                        <BiArrowBack />
+                    </div>
                 </Link>
             </div>
-            <div className={`md:flex items-center justify-center gap-5 ${search ? '' : 'hidden'}`}>
+            <div className={`md:flex items-center justify-center gap-5 ${search ? 'w-full pr-2' : 'hidden'}`}>
                 <form onSubmit={e => {
                     e.preventDefault();
                     handleSearch();
                 }}
                 >
                     <div className={`flex items-center px-4 pr-0 rounded-full border bg-transparent  ${colorMode === "dark" ? "border-zinc-700 " : "border-zinc-300 "} border`}>
-                        <div className="flex items-center pr-5">
+                        <div className="flex items-center pr-5 w-full">
                             <input
                                 type="text"
                                 className={`md:w-96 placeholder:text-zinc-500 w-full focus:outline-none border-none bg-transparent`}
@@ -72,7 +79,7 @@ const Navbar = ({ view, setView }: { view: boolean, setView: React.Dispatch<Reac
                 </div>
             </div>
             <div className="flex gap-5 items-center text-xl">
-                <div onClick={toggleColorMode} className={`transition ease-in-out duration-300 cursor-pointer md:p-2 ml-1 rounded-full ${colorMode === "dark" ? 'hover:bg-zinc-700' : 'hover:bg-zinc-200'}`}>
+                <div onClick={toggleColorMode} className={`transition ease-in-out duration-300 cursor-pointer md:p-2 ml-1 rounded-full ${colorMode === "dark" ? 'hover:bg-zinc-700' : 'hover:bg-zinc-200'} ${search ? 'hidden' : 'flex'}`}>
                     {colorMode === "dark" ?
                         <BsSunFill color='white' />
                         :
@@ -88,7 +95,7 @@ const Navbar = ({ view, setView }: { view: boolean, setView: React.Dispatch<Reac
                             9+
                         </span>
                     </div>
-                    <AiOutlineSearch className=' active:scale-75 cursor-pointer text-2xl' onClick={() => setSearch(true)} />
+                    <AiOutlineSearch className='md:hidden active:scale-75 cursor-pointer text-2xl' onClick={() => setSearch(true)} />
                     <img src="/user.png" alt="" className='bg-zinc-200 w-9 h-9 rounded-full md:ml-3 transition ease-in-out duration-300 hover:scale-110 active:scale-90 cursor-pointer' />
                 </div>
             </div>

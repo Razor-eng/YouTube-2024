@@ -47,7 +47,7 @@ export default function Watch({ view, setView }: { view: boolean, setView: React
                         <div className="md:hidden">
                             <Sidebar view={view} search={false} />
                         </div>
-                        <div className="flex lg:flex-row flex-col gap-y-10 gap-x-5 lg:p-7 mx-2 md:mr-0 lg:w-full overflow-auto">
+                        <div className="flex lg:flex-row flex-col gap-y-10 gap-x-5 lg:p-7 mx-2 md:mr-0 lg:w-full overflow-auto overflow-x-hidden">
                             <div className="max-w-[100%] lg:max-w-[70%]">
                                 <div>
                                     <iframe
@@ -81,7 +81,7 @@ export default function Watch({ view, setView }: { view: boolean, setView: React
                                                     Subscribe
                                                 </button>
                                             </div>
-                                            <div className="flex items-center lg:gap-4 gap-8 lg:mt-0 mt-4">
+                                            <div className="flex items-center lg:gap-4 gap-6 lg:mt-0 mt-4">
                                                 <button className={`${colorMode === 'dark' ? 'bg-zinc-700 text-zinc-300' : 'bg-zinc-100'} rounded-full text-zinc-500 flex items-center px-3 py-2`}>
                                                     <div className="flex items-center gap-2 cursor-pointer pr-3 border-r border-zinc-400">
                                                         <BiLike className="text-xl" />

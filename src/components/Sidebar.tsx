@@ -149,7 +149,7 @@ const Sidebar = ({ search, view }: { search: boolean, view: boolean }) => {
     ]
 
     return (
-        <div className={`h-screen overflow-y-scroll scrollHide relative ${view ? 'md:w-1/12' : 'md:w-3/12'}`}>
+        <div className={`h-screen overflow-y-scroll scrollHide relative ${view ? 'md:w-28' : 'md:w-60'}`}>
             <div className={` ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white'} pr-5 overflow-x-hidden pb-8 hidden md:block ${search ? "md:block hidden" : ""}`}>
                 {view ?
                     <div className="md:flex ml-1 flex-col hidden md:w-[64px]">
@@ -286,7 +286,7 @@ const Sidebar = ({ search, view }: { search: boolean, view: boolean }) => {
                         <div
                             key={id}
                             className={
-                                `py-4 cursor-pointer ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "text-white" : "text-black"}` : "text-zinc-500"} transition-all ease-in duration-150 cursor-pointer`
+                                `py-2 cursor-pointer ${colorMode === "dark" ? 'hover:bg-zinc-800' : 'hover:bg-zinc-100'} ${name === val ? `${colorMode === "dark" ? "text-white" : "text-black"}` : "text-zinc-500"} transition-all ease-in duration-150 cursor-pointer`
                             }
                             onClick={() => { setVal(name); getHome(name) }}
                         >

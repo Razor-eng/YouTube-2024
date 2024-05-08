@@ -34,7 +34,7 @@ function Search({ view, setView }: { view: boolean, setView: React.Dispatch<Reac
                 <Sidebar view={view} search={true} />
                 {
                     videos.length ?
-                        <div className='md:py-4 py-2 md:pl-8 flex flex-col gap-2 md:gap-5 w-full'>
+                        <div className='md:py-4 py-2 md:pl-8 flex flex-col gap-2 md:gap-5 w-screen mx-2 overflow-x-hidden'>
                             <InfiniteScroll
                                 dataLength={videos.length}
                                 next={() => dispatch(getSearchPageVideos(true))}
@@ -44,7 +44,7 @@ function Search({ view, setView }: { view: boolean, setView: React.Dispatch<Reac
                             >
                                 {videos.map((item: HomePageVideos) => {
                                     return (
-                                        <div className="md:my-5 my-2" key={item.videoId}>
+                                        <div className="md:my-5 my-4 w-full overflow-x-hidden" key={item.videoId}>
                                             <SearchCard data={item} />
                                         </div>
                                     )
