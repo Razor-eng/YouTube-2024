@@ -47,7 +47,7 @@ export default function Watch({ view, setView }: { view: boolean, setView: React
                         <div className="md:hidden">
                             <Sidebar view={view} search={false} />
                         </div>
-                        <div className="flex lg:flex-row flex-col gap-y-10 gap-x-5 lg:p-7 mx-2 md:mr-0 lg:w-full overflow-auto overflow-x-hidden">
+                        <div className="flex lg:flex-row flex-col gap-y-10 gap-x-5 lg:p-7 md:mx-2 md:mr-0 lg:w-full overflow-auto overflow-x-hidden">
                             <div className="max-w-[100%] lg:max-w-[70%]">
                                 <div>
                                     <iframe
@@ -58,9 +58,9 @@ export default function Watch({ view, setView }: { view: boolean, setView: React
                                         frameBorder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
-                                        className="md:rounded-md rounded-xl md:h-[502px] h-96"
+                                        className="md:rounded-md rounded-xl w-screen md:h-[502px] h-96"
                                     ></iframe>
-                                    <div className="mt-5">
+                                    <div className="mt-5 mx-2">
                                         <p className="text-xl font-semibold">{currentPlaying.videoTitle}</p>
                                         <div className="flex lg:flex-row flex-col justify-between mt-1">
                                             <div className="flex items-center gap-5 mr-5 mt-4">

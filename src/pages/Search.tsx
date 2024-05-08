@@ -30,27 +30,27 @@ function Search({ view, setView }: { view: boolean, setView: React.Dispatch<Reac
             <div style={{ height: "7.5vh" }}>
                 <Navbar view={view} setView={setView} />
             </div>
-            <div className="flex" style={{ height: "92.5vh" }}>
+            <div className="flex w-screen" style={{ height: "92.5vh" }}>
                 <Sidebar view={view} search={true} />
                 {
                     videos.length ?
-                        <div className='md:py-4 py-2 md:pl-8 flex flex-col gap-2 md:gap-5 w-screen mx-2 overflow-x-hidden'>
-                            <InfiniteScroll
-                                dataLength={videos.length}
-                                next={() => dispatch(getSearchPageVideos(true))}
-                                hasMore={videos.length < 500}
-                                loader={<Spinner />}
-                                height={"92.5vh"}
-                            >
+                        <InfiniteScroll
+                            dataLength={videos.length}
+                            next={() => dispatch(getSearchPageVideos(true))}
+                            hasMore={videos.length < 500}
+                            loader={<Spinner />}
+                            height={"92.5vh"}
+                        >
+                            <div className='md:py-4 py-2 md:pl-8 flex flex-col gap-2 md:gap-5 w-full'>
                                 {videos.map((item: HomePageVideos) => {
                                     return (
-                                        <div className="md:my-5 my-4 w-full overflow-x-hidden" key={item.videoId}>
+                                        <div className="md:my-5 my-2 overflow-x-hidden" key={item.videoId}>
                                             <SearchCard data={item} />
                                         </div>
                                     )
                                 })}
-                            </InfiniteScroll>
-                        </div>
+                            </div>
+                        </InfiniteScroll>
                         :
                         <Spinner />
                 }

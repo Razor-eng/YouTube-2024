@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const SearchCard = ({ data }: { data: HomePageVideos }) => {
     return (
         <Link to={`/watch/${data.videoId}`}>
-            <div className='flex flex-col sm:flex-row md:gap-3 overflow-x-hidden transition-all ease-in hover:scale-105 group cursor-pointer border w-screen md:w-auto md:border-none p-4 md:p-0'>
+            <div className='flex flex-col sm:flex-row md:gap-3 overflow-x-hidden transition-all ease-in hover:scale-105 group cursor-pointer border-b border-t w-screen md:w-auto md:border-none p-4 md:p-0'>
                 <div className="relative">
                     <span className="absolute bottom-3 right-3 text-sm text-white bg-zinc-700 rounded-md bg-opacity-70 font-semibold px-2 py-0.5 z-10">
                         {data.videoDuration}

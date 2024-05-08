@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function Card({ data }: { data: HomePageVideos }) {
     return (
         <Link to={`/watch/${data.videoId}`}>
-            <div className='h-fit flex gap-3 flex-col rounded-lg transition-all ease-in  cursor-pointer hover:scale-105 group'>
+            <div className='h-fit flex gap-3 flex-col rounded-lg transition-all ease-in border-t border-b md:border-none p-4 md:p-0 cursor-pointer hover:scale-105 group'>
                 <div className="relative">
                     <span className="absolute bottom-3 right-3 text-sm bg-zinc-800 bg-opacity-70 text-white font-semibold px-2 py-0.5 z-10">
                         {data.videoDuration}

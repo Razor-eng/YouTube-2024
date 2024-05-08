@@ -40,11 +40,11 @@ const Home = ({ view, setView }: { view: boolean, setView: React.Dispatch<React.
                             loader={<Spinner />}
                             height={"92.5vh"}
                         >
-                            <div className="py-1 px-8">
-                                <div className='text-zinc-400 md:hidden'>
+                            <div className="py-1 md:px-8">
+                                <div className='text-zinc-400 md:hidden ml-6'>
                                     <FaRegCompass className='text-2xl' />
                                 </div>
-                                <div className={`${view ? 'md:grid-cols-4' : 'md:grid-cols-3'} grid gap-x-12 md:gap-x-6 md:gap-y-10 grid-cols-1 gap-y-8 py-4 z-10 overflow-y-scroll`}>
+                                <div className={`${view ? 'md:grid-cols-4' : 'md:grid-cols-3'} grid gap-x-12 md:gap-x-6 md:gap-y-10 grid-cols-1 gap-y-5 py-6 z-10 overflow-y-scroll`}>
                                     {videos.map((item: HomePageVideos) => {
                                         return <Card data={item} key={item.videoId} />;
                                     })}

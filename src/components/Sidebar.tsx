@@ -149,7 +149,7 @@ const Sidebar = ({ search, view }: { search: boolean, view: boolean }) => {
     ]
 
     return (
-        <div className={`h-screen overflow-y-scroll scrollHide relative ${view ? 'md:w-28' : 'md:w-60'}`}>
+        <div className={`h-screen overflow-y-scroll scrollHide relative ${view ? 'md:w-28' : 'md:w-96'}`}>
             <div className={` ${colorMode === "dark" ? 'bg-[#212121]' : 'bg-white'} pr-5 overflow-x-hidden pb-8 hidden md:block ${search ? "md:block hidden" : ""}`}>
                 {view ?
                     <div className="md:flex ml-1 flex-col hidden md:w-[64px]">
